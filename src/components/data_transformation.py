@@ -40,7 +40,7 @@ class DataTransformation:
                 steps=[
                 ('imputer',SimpleImputer(strategy='most_frequent')),
                 ('one_hot_encoder',OneHotEncoder()),
-                ('std_scaler',StandardScaler())
+                ('std_scaler',StandardScaler(with_mean=False))
             ])
 
             logging.info("Encoding for features done") 

@@ -54,7 +54,7 @@ if __name__=="__main__":
     train,test=di.init_data_ingestion()
 
     dt=DataTransformation()
-    train_arr,test_arr=dt.initiate_data_transformation('D:\DOCS\MLPgit/artifacts/train.csv','D:\DOCS\MLPgit/artifacts/test.csv')
+    train_arr,test_arr,_=dt.initiate_data_transformation('D:\DOCS\MLPgit/artifacts/train.csv','D:\DOCS\MLPgit/artifacts/test.csv')
 
     modeltrainer=ModelTrainer()
     print(modeltrainer.initiate_model_trainer(train_arr,test_arr))

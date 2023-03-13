@@ -25,8 +25,8 @@ def evaluate_model(model,X_train,y_train,X_test,y_test):
         for name,regressor in model.items():
             regressor.fit(X_train,y_train)
             y_pred=regressor.predict(X_test)
-            r2_score=r2_score(y_test,y_pred)
-            model_report[name]=r2_score
+            r2_scores=r2_score(y_test,y_pred)
+            model_report[name]=r2_scores
         return model_report
     except Exception as e:
         raise CustomException(e,sys)

@@ -25,8 +25,8 @@ class ModelTrainerConfig:
     trained_model_filepath=os.path.join("artifacts",'model.pkl')
 
 class ModelTrainer:
-    def __init__(self,config:ModelTrainerConfig):
-        self.config=config
+    def __init__(self):
+        self.model_trainer_config=ModelTrainerConfig()
     def initiate_model_trainer(self,train_arr,test_arr):
         
         try:
@@ -51,25 +51,28 @@ class ModelTrainer:
 
             }
             logging.info("Model training started")
-            model_report:dict=evaluate_model(model,X_train,y_train,X_test,y_test)
-            best_model_scores=max(sorted(model_report.values()))
-            best_model_name=list(model.report.keys())[
-                list(model.report.keys()).index(best_model_scores)
+            model_report:dict=evaluate_model(model=model,X_train=X_train,
+                                             y_train=y_train,X_test=X_test,y_test=y_test)
+            best_model_scores=max(model_report.values())
+            best_model_name=list(model_report.keys())[
+                list(model_report.values()).index(best_model_scores)
             ]
             best_model=model[best_model_name]
+            logging.info("Model training completed")
             if best_model_scores<0.6:
                 raise CustomException("no best model found")
             
-            logging.info("Model training completed")
+            
 
             save_object(
-                file_path=self.model_trainer_config.trained_model_file_path,
+                file_path=self.model_trainer_config.trained_model_filepath,
                 obj=best_model
 
                 )
             predicted=best_model.predict(X_test)
+            
             return r2_score(predicted,y_test)
         
 
         except Exception as e:
-            raise CustomException("Error in model training",e,sys)
+            raise CustomException(e,sys)
