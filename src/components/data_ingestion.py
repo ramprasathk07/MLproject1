@@ -9,6 +9,7 @@ from dataclasses import dataclass
 from src.exception import CustomException
 from src.logger import logging
 from src.components.data_transformation import DataTransformationConfig,DataTransformation
+from src.components.model_trainer import ModelTrainerConfig,ModelTrainer
 @dataclass
 class dataIngestionConfig:
     train_data_path:str=os.path.join("artifacts","train.csv")
@@ -53,6 +54,10 @@ if __name__=="__main__":
     train,test=di.init_data_ingestion()
 
     dt=DataTransformation()
-    dt_transform=dt.initiate_data_transformation(train,test)
+    train_arr,test_arr=dt.initiate_data_transformation('D:\DOCS\MLPgit/artifacts/train.csv','D:\DOCS\MLPgit/artifacts/test.csv')
+
+    modeltrainer=ModelTrainer()
+    print(modeltrainer.initiate_model_trainer(train_arr,test_arr))
+
 
     

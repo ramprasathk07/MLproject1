@@ -24,7 +24,7 @@ class DataTransformation:
 
     def get_data_transformer_obj(self):
         try:
-            numerical_features =['math_score', 'reading_score', 'writing_score']
+            numerical_features =['reading_score', 'writing_score']
 
             categorical_features = ['gender', 'race_ethnicity', 
                                     'parental_level_of_education', 
@@ -39,7 +39,7 @@ class DataTransformation:
             cat_pipe=Pipeline(
                 steps=[
                 ('imputer',SimpleImputer(strategy='most_frequent')),
-                ('one_hot_encoder',OneHotEncoder())
+                ('one_hot_encoder',OneHotEncoder()),
                 ('std_scaler',StandardScaler())
             ])
 
@@ -67,7 +67,7 @@ class DataTransformation:
 
             logging.info("Preprocessor obtained successfully")
 
-            traget_col=['math_score',]
+            traget_col=['math_score']
 
             X_train=train_df.drop(traget_col,axis=1)
             y_train=train_df[traget_col]
