@@ -33,7 +33,8 @@ class DataTransformation:
             num_pipe=Pipeline(
                 steps=[
                 ('imputer',SimpleImputer(strategy='median')),
-                ('std_scaler',StandardScaler())
+                ('std_scaler',StandardScaler(
+                with_mean=False))
             ])
 
             cat_pipe=Pipeline(
